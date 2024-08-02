@@ -1,0 +1,483 @@
+.small{
+    font-size: 85%;
+}
+.px {
+    padding: 20px;
+  }
+  .yesNOButton{
+    flex-wrap: wrap;
+  }
+.cont1{
+    flex-wrap: wrap !important;
+    display: flex;
+}
+.buttonStyle1{
+    cursor: pointer;
+    color: #a3a3a3;
+    font-weight: 400; 
+    border-style: none;
+    background-color: #fff;
+}
+.textArea {
+    border: 1px solid #ddd;
+    resize: none;
+  }
+  .feedBack .radioBtn .box{
+    width: 40px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+  }
+  .selected {
+    background: #ee3124 !important;
+    color: #fff !important;
+    box-shadow: 1px 1px 19px 0 rgb(246, 88, 43, .4);
+    border: 1px solid #ee3124 !important;
+
+  }
+  .selectedResponse {
+    background: #ee3124 !important;
+    color: #fff !important;
+    box-shadow: 1px 1px 19px 0 rgb(246, 88, 43, .4);
+    border: 1px solid #ee3124 !important;
+  }
+  .selectedYesNo {
+    background: #ee3124 !important;
+    color: #fff !important;
+    box-shadow: 1px 1px 19px 0 rgb(246, 88, 43, .4);
+    border: 1px solid #ee3124 !important;
+  }
+  .textCenter {
+    text-align: center;
+  }
+  .left {
+    float: left;
+}
+.Button{
+    cursor: pointer;
+    color: #a3a3a3;
+    font-weight: 400;
+}
+
+.inputStyle{
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0;
+    font-weight: 400;
+   display: none;
+    padding: 20px;
+}
+.feedback .radioBtn .box {
+    width: 40px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+.title{
+  font-size: 22px;
+  font-weight: 500;
+color: rgb(51,51,51);
+line-height: 24px;
+}
+.subText{
+  font-size: 12px;
+}
+.radioBtn{
+  justify-content: flex-end;
+}
+.inputStyle:checked + label {
+    color: red;
+  }
+
+  .detailWidth{
+    width: 33.33%;
+  }
+
+.mx{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+
+
+  .bgSky {
+    background: #f4f6fa;
+  }
+  .whole {
+    width: 100%;
+    height: auto;
+  }
+  .bottomContainer {
+    box-shadow: 1px 1px 12px #ddd;
+    margin-bottom: 30px;
+  }
+  .twoTenth {
+    width: 20%;
+  }
+ .vCentre{
+  justify-content: center;
+  margin-bottom: 20px;
+
+ }
+  /* .pLabel label {
+    padding: 9px 0;
+  } */
+  .label {
+    display: inline-block;
+    margin-bottom: 5px;
+   
+    font-weight: 700;
+    font-size: 14px;
+    color: rgb(51, 51, 51);
+    line-height: 20px;
+  }
+  .leedLabelM {
+    margin: 0 20px;
+  }
+  .left {
+    float: left;
+  }
+  .feedbackTitle {
+    margin: 30px 0 ;
+    font-family: "sfui-regular", sans-serif;
+    font-weight: 500 !important;
+    color: rgb(51, 51, 51) !important;
+    line-height: 24px !important;
+    font-size: 22px !important;
+  }
+  .hx {
+    font-size: 22px;
+  }
+  .flexDdesk1{
+    justify-content: flex-start;
+  }
+  
+  .revel {
+    position: relative;
+  }
+  .feedback {
+    padding: 20px 0 20px 30px;
+    border-left: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+  .textArea {
+    border: 1px solid #ddd;
+    resize: none;
+  }
+  .half {
+    width: 50%;
+  }
+  
+.radioLabel {
+    margin-right: 10px;
+  }
+  
+  .radioInput {
+    display: none;
+  }
+  
+  .radioInput + span {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+  }
+  
+  .radioInput:checked + span {
+    background-color: #000;
+    color: #fff;
+  }
+  .box {
+    /* Button styles */
+    border: 1px solid #000;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .box1{
+    cursor: pointer;
+    color: rgb(163, 163, 163) ;
+    width: auto;
+    height: auto;
+    padding: 4px 15px !important;
+    float: left;
+    text-align: center;
+    border: 1px solid #ddd;
+    margin: 0;
+    margin-right: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    margin-bottom: 10px !important;
+    flex-wrap: wrap;
+    
+  }
+  
+  .box.selected {
+    background-color: #000;
+    color: #fff;
+  }
+  
+ 
+  
+  .errorMessage {
+    color: maroon;
+    font-size: 12px;
+    margin-top: 5px; /* Ensure some space between textarea and error message */
+    display: block;
+    font-family: "sfui-regular", sans-serif;
+  }
+  .flexD {
+    display: flex !important;
+  }
+  
+  .textCenter {
+    text-align: center;
+  }
+  
+  .mobiltyBtn {
+    background-color: #f5592e;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    min-width: 138px;
+    text-transform: uppercase;
+    margin-top: 7px;
+  }
+  
+  .btn {
+    display: inline-block;
+    margin-bottom: 0;
+  
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+  
+    line-height: 1.42857;
+  
+    user-select: none;
+  }
+ 
+/* Responsive styles for screens with max-width 768px */
+@media only screen and (max-width: 768px) {
+  .feedBack .radioBtn .box {
+      width: 15px;
+      height: 15px;
+      float: left;
+      text-align: center;
+      border: 1px solid #ddd;
+      margin: 0 1px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #000;
+      padding: 11px;
+      font-size: 11px;
+  }
+
+  .flexFlow1 {
+      flex-flow: column;
+  }
+
+  .wx {
+      width: 10%;
+  }
+
+  .detailWidth {
+      width: 100%;
+  }
+
+  .feedbackTitle {
+      font-weight: 600;
+      margin: 20px 0;
+  }
+
+  .cont1 {
+      flex-direction: column;
+      align-items: stretch;
+  }
+
+  .yesNOButton, .box1 {
+      width: 100%;
+      margin: 5px 0;
+  }
+
+  .inputStyle {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+  }
+
+  .buttonStyle1, .box {
+      width: 100%;
+      text-align: center;
+      margin: 5px 0;
+  }
+
+  .px {
+      padding: 10px;
+  }
+
+  .textArea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+  }
+
+  .bottomContainer {
+      margin-bottom: 20px;
+  }
+
+  .twoTenth {
+      width: 100%;
+      margin-bottom: 10px;
+  }
+
+  .mx {
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+
+  .hx {
+      font-size: 18px;
+  }
+
+  .bgSky {
+      padding: 10px;
+  }
+
+  .leedLabelM {
+      margin: 0 10px;
+  }
+
+  .box1 {
+      justify-content: center;
+      flex-wrap: nowrap;
+  }
+
+  .textCenter {
+      text-align: center;
+  }
+
+  .mobiltyBtn {
+      width: 100%;
+  }
+
+  .btn {
+      width: 100%;
+      text-align: center;
+  }
+
+  .blockView {
+      width: 100%;
+      display: block;
+  }
+
+  .disc {
+      margin-bottom: 5px;
+  }
+
+  .small {
+      font-size: 75%;
+  }
+
+  .title {
+      font-size: 18px;
+      line-height: 22px;
+  }
+
+  .subText {
+      font-size: 10px;
+  }
+
+  .errorMessage {
+      font-size: 10px;
+  }
+
+  .feedback {
+      padding: 10px;
+      border-left: none;
+  }
+
+  .textCenter {
+      text-align: center;
+  }
+
+  .left {
+      float: none;
+      text-align: center;
+  }
+
+  .left1 {
+      float: none;
+      text-align: center;
+      flex-flow: column;
+  }
+
+  .label {
+      font-size: 12px;
+  }
+
+  .hx {
+      font-size: 20px;
+  }
+
+  .mobiltyBtn {
+      width: 100%;
+  }
+
+  /* Additional styles for vertical layout */
+  .flexDdesk, .flexDdesk1 {
+      flex-direction: column;
+  }
+
+  .leedLabelM {
+      display: none;
+  }
+
+  .flexDdesk .flexD, .flexDdesk1 .flexD {
+      width: 100%;
+      margin-bottom: 10px;
+  }
+
+  .flexDdesk .label, .flexDdesk1 .label {
+      display: block;
+      width: 100%;
+  }
+}
+
+/* Existing styles for larger screens */
+@media only screen and (min-width: 767px) {
+  .blockView {
+      width: 100%;
+      display: block;
+  }
+
+  .disc {
+      margin-bottom: 5px;
+  }
+}
