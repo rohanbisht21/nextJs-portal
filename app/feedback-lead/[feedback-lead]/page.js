@@ -4,17 +4,17 @@ import localFont from "next/font/local";
 import React, { useEffect, useState } from "react";
 import styles from "./feedbackLead.module.css";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Swal from "sweetalert2";
 
 const sfui_regular = localFont({
   src: "../../../fonts/sfui/SFUIDisplay-Regular.woff2",
 });
 
-
 const Content = () => {
-  const router = useRouter();
+  const pathName = usePathname();
 
-  // console.log("rsrtr",router)
+  console.log("rsrtr",pathName?.split("/")[pathName?.split("/")?.length-1])
 
   const [formData, setFormData] = useState({
     salesRemark: null,
@@ -23,25 +23,32 @@ const Content = () => {
     requirements: null,
     callFeedback: null,
     otherReasonText: "",
-    multiReason:""
+    multiReason: "",
   });
 
+  // onClick={()=>setFormData({
+  //   ...formData,
+  //   salesRemark:false
+  // })}
 
-  
+  // onClick={()=>setFormData({
+  //   ...formData,
+  //   salesRemark:true
+  // })}
+
+  // const [ratings, setRatings] = useState({});
   const [errors, setErrors] = useState({});
   const [feedbackLeadInfo, setFeedbackLeadInfo] = useState(null);
-  
 
   const ticketId =
-    "detail?lead_id=79a0836a60a21d3aef66896dee62dde6:7417b1210bbaafc5cfea943a238c";
-  const baseUrl = "https://gmlaravel.awfis.com/api/v1/get/lead/";
+    `detail?lead_id=${pathName?.split("/")[pathName?.split("/")?.length-1]}`;
+  const baseUrl = "https://gmlaravel.awfis.com/api/v1/";
+  
   useEffect(() => {
     const fetchFeedbackLeadInfo = async () => {
       try {
-        const response = await axios.get(`${baseUrl}${ticketId}`, {
-          params: {
-            form_id: 2,
-          },
+        const response = await axios.get(`${baseUrl}get/lead/${ticketId}`, {
+         
         });
         setFeedbackLeadInfo(response?.data?.data);
         console.log("asda", response);
@@ -54,50 +61,99 @@ const Content = () => {
 
   const submitForm1 = async () => {
     try {
-      let formData = {
-        data: [],
-        form_id: 1,
-        lead_id: 2,
-      };
-      formData.data.push();
-      const response = await axios.post(`${baseUrl}${ticketId}`, formData);
+      const myData = [
+        {
+          id:1,
+          name:"Have you received a call from our sales representative?",
+          remark:formData?.salesRemark === true ? 'yes':'no'
+        },
 
-      if (response.status === 200) {
-        //modal kholna h idhr
-      }
-    } catch (error) {
-      console.error("gjjyki", error);
+        {
+          id: 2,
+        name: "On the scale of 10, how would you rate your experience with our sales representative, so far?",
+        rating:formData?.experienceRating,
+        },
 
-      // Handle errors
-    }
-  };
+        {
+        id: 3,
+        name: "Is there anything more that we can do to improve your experience?",
+        remark: formData?.experienceRemarks
+        },
 
-  const handleYesNo = (question, value) => {
-    setFormData((prevFormData) => ({
-      requirements: {
-        ...prevFormData.requirements,
-        [question]: value,
+        {
+          id: 4,
+          name: "Did we meet your requirements?",
+          remark: formData?.requirements
       },
-    }));
-
-    setErrors((prevErrors) => {
-      const newErrors = { ...prevErrors };
-      delete newErrors[question];
-      return newErrors;
-    });
+      {
+          id: 5,
+          name: "Please help us understand what did not work for you:",
+          remark: formData?.multiReason
+      },
+      {
+          id: 6,
+          name: "Please mention your reason for deciding to not go ahead with us.",
+          remark: formData?.otherReasonText
+      },
+      {
+          id: 7,
+          name: "Would you like to share your feedback with us over a call?",
+          remark: formData?.callFeedback
+      }
+      ]
+      await axios.post(`${baseUrl}lead/feedback`,{
+        data:JSON.stringify(myData),
+        form_id:3,
+        lead_id:pathName?.split("/")[pathName?.split("/")?.length-1]
+      });
+      if (response1.status === 200) {
+        Swal.fire({
+          title: "Successful",
+          text: "Data saved Successfully",
+          icon: "success"
+        });
+      }
+    } catch (error) {}
   };
 
-  const handleTextareaChange = (event) => {
-    const value = event.target.value;
-    setTextareaValue(value);
+ 
 
-    setErrors((prevErrors) => {
-      const newErrors = { ...prevErrors };
-      if (value) {
-        delete newErrors.textarea;
+  const validateForm = () => {
+    const newErrors = {};
+    if (formData.salesRemark === null) {
+      newErrors.salesRemark = "* Please select.";
+    }
+    if (formData.experienceRating === null) {
+      newErrors.experienceRating = "* Please select.";
+    }
+    
+    if (formData.requirements === null) {
+      newErrors.requirements = "* Please select.";
+    }
+    if (formData.multiReason ===  null ) {
+      newErrors.multiReason = "* Please select.";
+    }
+    
+    if(formData?.multiReason?.includes("Other Reasons")){
+      if (formData.otherReasonText ===  "") {
+        newErrors.otherReasonText = "* Please select.";
       }
-      return newErrors;
-    });
+    }
+    
+    if (formData.callFeedback === null) {
+      newErrors.callFeedback = "* Please select.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  
+ 
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      submitForm1();
+      console.log("asdsa")
+    }
   };
 
   const handleAdditionalFeedback = (response) => {
@@ -116,51 +172,20 @@ const Content = () => {
       }
     });
   };
+  
 
   const handleOtherReasonChange = (event) => {
     setOtherReasonText(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let newErrors = {};
-
-    // Validate ratings
-    if (!ratings["overallExperience"]) {
-      newErrors["overallExperience"] = "* Please select.";
-    }
-
-    // Validate yes/no questions
-    const requiredYesNoQuestions = [
-      "callReceived",
-      "requirementsMet",
-      "shareFeedback",
-    ];
-    requiredYesNoQuestions.forEach((question) => {
-      if (!yesNoAnswers[question]) {
-        newErrors[question] = "* Please select.";
-      }
-    });
-
-    // Validate textarea
-    if (!textareaValue) {
-      newErrors["textarea"] = "Please provide your feedback.";
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      // Submit form
-    }
-    submitForm1();
-  };
+  
 
   return (
     <div className={`${styles.container} container ${sfui_regular.className}`}>
       <div
         className={`${styles.whole} ${styles.left} ${styles.bottomContainer} ${styles.feedbackForm}`}
       >
-        <form onSubmit={handleSubmit}>
+        <div >
           <div
             className={`${styles.whole} ${styles.left}  ${styles.bgSky} ${styles.px} ${styles.widthresponsive}`}
           >
@@ -322,27 +347,35 @@ const Content = () => {
               <button
                 type="button"
                 className={`${styles.box1} ${styles.buttonStyle1} ${
-                  formData.salesRemark === "Yes"
-                    ? styles.selectedYesNo
-                    : ""
+                  formData.salesRemark === true ? styles.selectedYesNo : ""
                 }`}
-                onClick={() => handleYesNo("callReceived", "Yes")}
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    salesRemark: true,
+                  })
+                }
               >
                 Yes
               </button>
               <button
                 type="button"
                 className={`${styles.box1} ${styles.buttonStyle1} ${
-                  formData.salesRemark === "No" ? styles.selectedYesNo : ""
+                  formData.salesRemark === false ? styles.selectedYesNo : ""
                 }`}
-                onClick={() => handleYesNo("callReceived", "No")}
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    salesRemark: false,
+                    
+                    
+                  })
+                }
               >
                 No
               </button>
             </div>
-            {errors.callReceived && (
-              <div className={styles.errorMessage}>{errors.callReceived}</div>
-            )}
+            {errors.salesRemark && <p className={styles.errorMessage}>{errors.salesRemark}</p>}
           </div>
 
           <div
@@ -377,16 +410,20 @@ const Content = () => {
                         id={`radio-${value}`}
                         name="rating"
                         className={styles.inputStyle}
-                        onChange={() => setFormData({
-                          ...formData,
-                          experienceRating:value
-                        })}
+                        onChange={() =>
+                          setFormData({
+                            ...formData,
+                            experienceRating: value,
+                          })
+                        }
                         checked={formData.experienceRating === value}
                       />
                       <label
                         htmlFor={`radio-${value}`}
                         className={`${styles.box} ${styles.colFormLabel} ${
-                          formData.experienceRating === value ? styles.selected : ""
+                          formData.experienceRating === value
+                            ? styles.selected
+                            : ""
                         }`}
                       >
                         {value}
@@ -395,11 +432,7 @@ const Content = () => {
                   );
                 })}
               </div>
-              {errors.overallExperience && (
-                <div className={styles.errorMessage}>
-                  {errors.overallExperience}
-                </div>
-              )}
+              {errors.experienceRating && <p className={styles.errorMessage}>{errors.experienceRating}</p>}
             </div>
           </div>
 
@@ -422,11 +455,12 @@ const Content = () => {
                   <textarea
                     className={`${styles.whole} ${styles.textArea}`}
                     value={formData.experienceRemarks}
-                    onChange={handleTextareaChange}
+                    onChange={(e)=>setFormData({
+                      ...formData,
+                      experienceRemarks:e?.target?.value
+                    })}
                   ></textarea>
-                  {errors.textarea && (
-                    <div className={styles.errorMessage}>{errors.textarea}</div>
-                  )}
+                   {errors.experienceRemarks && <p className={styles.errorMessage}>{errors.experienceRemarks}</p>}
                 </div>
               </div>
             </div>
@@ -447,34 +481,36 @@ const Content = () => {
               <button
                 type="button"
                 className={`${styles.box1} ${styles.buttonStyle1} ${
-                  formData.requirements === "Yes"
-                    ? styles.selectedYesNo
-                    : ""
+                  formData.requirements === true ? styles.selectedYesNo : ""
                 }`}
-                onClick={() => handleYesNo("requirementsMet", "Yes")}
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    requirements: true,
+                  })
+                }
               >
                 Yes
               </button>
               <button
                 type="button"
                 className={`${styles.box1} ${styles.buttonStyle1} ${
-                  formData.requirements === "No"
-                    ? styles.selectedYesNo
-                    : ""
+                  formData.requirements === false ? styles.selectedYesNo : ""
                 }`}
-                onClick={() => handleYesNo("requirementsMet", "No")}
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    requirements: false,
+                  })
+                }
               >
                 No
               </button>
             </div>
-            {errors.requirements && (
-              <div className={styles.errorMessage}>
-                {errors.requirements}
-              </div>
-            )}
+            {errors.requirements && <p className={styles.errorMessage}>{errors.requirements}</p>}
           </div>
 
-          {formData.requirements === "No" && (
+          {formData.requirements === false && (
             <div
               className={`${styles.whole} ${styles.left} ${styles.feedback} ${styles.revel}`}
             >
@@ -506,7 +542,7 @@ const Content = () => {
                     key={response}
                     className={`${styles.box1} ${styles.buttonStyle1} ${
                       formData?.multiReason?.includes(response)
-                        ? styles.selectedResponse
+                        ? styles.selectedYesNo
                         : ""
                     }`}
                     onClick={() => handleAdditionalFeedback(response)}
@@ -519,7 +555,7 @@ const Content = () => {
           )}
 
           {/* Conditionally render additional textarea */}
-          {/* {otherReason && (
+          {formData.multiReason?.includes("Other reasons") && (
             <div
               className={`${styles.whole} ${styles.left} ${styles.feedback} ${styles.revel}`}
             >
@@ -532,14 +568,18 @@ const Content = () => {
                 </span>
               </div>
               <div className={`${styles.blockView} ${styles.left}`}>
-                <textarea
-                  className={`${styles.whole} ${styles.textArea}`}
-                  value={otherReasonText}
-                  onChange={handleOtherReasonChange}
-                ></textarea>
+              <textarea
+                    className={`${styles.whole} ${styles.textArea}`}
+                    value={formData.otherReasonText}
+                    onChange={(e)=>setFormData({
+                      ...formData,
+                      otherReasonText:e?.target?.value
+                    })}
+                  ></textarea>
               </div>
+              {errors.otherReasonText && <p className={styles.errorMessage}>{errors.otherReasonText}</p>}
             </div>
-          )} */}
+          )}
 
           <div
             className={`${styles.whole} ${styles.left} ${styles.feedback} ${styles.revel}`}
@@ -558,29 +598,33 @@ const Content = () => {
               <button
                 type="button"
                 className={`${styles.box1} ${styles.buttonStyle1} ${
-                  formData.shareFeedback === "Yes"
-                    ? styles.selectedYesNo
-                    : ""
+                  formData.callFeedback === true ? styles.selectedYesNo : ""
                 }`}
-                onClick={() => handleYesNo("shareFeedback", "Yes")}
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    callFeedback: true,
+                  })
+                }
               >
                 Yes
               </button>
               <button
                 type="button"
                 className={`${styles.box1} ${styles.buttonStyle1} ${
-                  formData.shareFeedback === "No"
-                    ? styles.selectedYesNo
-                    : ""
+                  formData.callFeedback === false ? styles.selectedYesNo : ""
                 }`}
-                onClick={() => handleYesNo("shareFeedback", "No")}
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    callFeedback: false,
+                  })
+                }
               >
                 No
               </button>
             </div>
-            {errors.shareFeedback && (
-              <div className={styles.errorMessage}>{errors.shareFeedback}</div>
-            )}
+           
           </div>
 
           <div
@@ -592,12 +636,14 @@ const Content = () => {
               <button
                 type="submit"
                 className={`${styles.mobiltyBtn} ${styles.btn}`}
+                onClick={handleSubmit}
               >
                 Submit
               </button>
             </div>
           </div>
-        </form>
+        </div>
+        
       </div>
     </div>
   );

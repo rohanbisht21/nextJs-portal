@@ -18,6 +18,18 @@
     font-size: 22px;
 
 }
+.inputStyle {
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0;
+    font-weight: 400;
+   display: none;
+    padding: 20px;
+}
+.inputStyle:checked + label {
+    background-color: red;
+    color: white;
+  }
 .categoryTitle{
 
     font-weight: 400;
@@ -180,6 +192,11 @@ height: 5px;
        
         margin: 20px 0;
         font-size: 19px;
+    }
+    .inputStyle {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
     }
     .radioBtn {
         width: 10%;

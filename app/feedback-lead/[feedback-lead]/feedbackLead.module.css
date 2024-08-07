@@ -279,10 +279,11 @@ line-height: 24px;
   
     user-select: none;
   }
- 
+  
+
 /* Responsive styles for screens with max-width 768px */
-@media only screen and (max-width: 768px) {
-  .feedBack .radioBtn .box {
+@media  (max-width: 768px) {
+  .feedback .radioBtn .box {
       width: 15px;
       height: 15px;
       float: left;
@@ -317,7 +318,7 @@ line-height: 24px;
   }
 
   .cont1 {
-      flex-direction: column;
+      flex-direction: row;
       align-items: stretch;
   }
 
@@ -333,9 +334,9 @@ line-height: 24px;
   }
 
   .buttonStyle1, .box {
-      width: 100%;
+      width: 45%;
       text-align: center;
-      margin: 5px 0;
+      margin: 5px 6px;
   }
 
   .px {
@@ -421,6 +422,7 @@ line-height: 24px;
   .feedback {
       padding: 10px;
       border-left: none;
+      display: block;
   }
 
   .textCenter {
@@ -455,9 +457,7 @@ line-height: 24px;
       flex-direction: column;
   }
 
-  .leedLabelM {
-      display: none;
-  }
+  
 
   .flexDdesk .flexD, .flexDdesk1 .flexD {
       width: 100%;

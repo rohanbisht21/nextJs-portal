@@ -142,7 +142,7 @@
 .onFourth {
   width: 40% !important;
   font-weight: 600;
-  font-family: sfui-semi-bold;
+  
   font-size: 14px;
   min-height: 35px;
   margin-bottom: 5px;
@@ -198,7 +198,7 @@
   width: auto;
   height: 14px;
   font-weight: 600;
-  font-family: sfui-semi-bold;
+  
   font-size: 14px;
   min-height: 35px;
   margin-bottom: 5px;

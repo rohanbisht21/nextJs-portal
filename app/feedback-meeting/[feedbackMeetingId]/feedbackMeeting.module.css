@@ -60,6 +60,9 @@
 .textArea {
   border: 1px solid #ddd;
   resize: none;
+  padding-left: 10px;
+  font-size: 14px;
+  height: auto;
 }
 .half {
   width: 50%;
@@ -69,9 +72,39 @@
   display: flex;
   width: 100%;
 }
-.radiohide {
-  display: contents;
+.radioBtn1{
+  position: relative;
+ 
+  width: 90%;
+}
+.errorMessage{
+  color: maroon;
+  font-size: 12px;
+  margin-top: 5px; /* Ensure some space between textarea and error message */
+  display: block;
+}
+
+.inputStyle{
   cursor: pointer;
+  box-sizing: border-box;
+  padding: 0;
+  font-weight: 400;
+ display: none;
+  padding: 20px;
+}
+.optionStyle{
+  margin: 1px 0;
+    padding: 0;
+    height: 25px;
+    outline: 0;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none;
+    color: #999;
+    font-size: 100%;
+    font-family: sans-serif;
+    line-height: normal;
+    border-radius: 0;
 }
 .radioBtn .clicked {
   background: #ee3124;
@@ -159,6 +192,9 @@
   }
   .radioBtn {
     width: 10%;
+  }
+  .radioBtn1{
+    width: 100%;
   }
   .feedback {
     padding: 20px 10px 20px 10px;
